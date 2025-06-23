@@ -130,4 +130,5 @@ This project is licensed under the MIT License. Copy or share - I really don't c
 - [Google Fonts](https://fonts.google.com/) for Plus Jakarta Sans and Fira Code
 
 ## Live Link
-- [Live link]()
+- Live link - [https://css-evolutions.netlify.app/](https://css-evolutions.netlify.app/) 
+- [My Portfolio](https://pixelsummit.dev/)

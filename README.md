@@ -56,7 +56,7 @@ An interactive demo showcasing the evolution of CSS from hacky workarounds to el
 1. **Clone the repository**
    ```bash
    git clone https://github.com/leverh/css-compare-demo
-   cd css-evolution-demo
+   cd css-compare-demo
    ```
 
 2. **Using Vite (Recommended)**

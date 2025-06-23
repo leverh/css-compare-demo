@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Container Query vs Media Query</title>
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <h1>Responsive Cards: Media Query vs Container Query</h1>
+    <p>Same component in two layout contexts.</p>
+
+    <div class="grid">
+      <!-- Media Query Card -->
+      <div class="media-area">
+        <h2>Media Query</h2>
+        <div class="card media-card">
+          <img src="https://placecats.com/300/200" alt="Kitten" />
+          <div class="content">
+            <h3>Fluffy</h3>
+            <p class="description">This is Fluffy. Fluffy loves to sleep in sunny windows and knock pens off tables.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container Query Card -->
+      <div class="container-area">
+        <h2>Container Query</h2>
+        <div class="container-box">
+          <div class="card container-card">
+            <img src="https://placecats.com/300/200" alt="Kitten" />
+            <div class="content">
+              <h3>Fluffy</h3>
+              <p class="description">This is Fluffy. Fluffy loves to sleep in sunny windows and knock pens off tables.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

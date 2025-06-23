@@ -1,42 +1,725 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Container Query vs Media Query</title>
-    <link rel="stylesheet" href="src/style.css" />
-  </head>
-  <body>
-    <h1>Responsive Cards: Media Query vs Container Query</h1>
-    <p>Same component in two layout contexts.</p>
 
-    <div class="grid">
-      <!-- Media Query Card -->
-      <div class="media-area">
-        <h2>Media Query</h2>
-        <div class="card media-card">
-          <img src="https://placecats.com/300/200" alt="Kitten" />
-          <div class="content">
-            <h3>Fluffy</h3>
-            <p class="description">This is Fluffy. Fluffy loves to sleep in sunny windows and knock pens off tables.</p>
+<head>
+  <meta charset="UTF-8" />
+  <title>Container Query vs Media Query</title>
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+<header class="header">
+  <h1>CSS Evolution</h1>
+  <p>Discover how CSS has transformed from hacky workarounds to elegant modern solutions</p>
+</header>
+
+<nav class="floating-nav">
+  <a href="#responsive" class="nav-link">
+    <span class="nav-icon">📱</span>
+    <span class="nav-text">Responsive</span>
+  </a>
+  <a href="#layout" class="nav-link">
+    <span class="nav-icon">📐</span>
+    <span class="nav-text">Layout</span>
+  </a>
+  <a href="#styling" class="nav-link">
+    <span class="nav-icon">🎨</span>
+    <span class="nav-text">Styling</span>
+  </a>
+  <a href="#animations" class="nav-link">
+    <span class="nav-icon">✨</span>
+    <span class="nav-text">Animations</span>
+  </a>
+  <a href="#typography" class="nav-link">
+    <span class="nav-icon">📝</span>
+    <span class="nav-text">Typography</span>
+  </a>
+</nav>
+
+<div class="container">
+  <div class="comparison-grid" id="responsive">
+    <!-- Container Query vs Media Query -->
+    <section class="comparison-section">
+      <div class="section-header">
+        <h2 class="section-title">Responsive Components</h2>
+        <p class="section-subtitle">Context-aware vs viewport-based responsive design</p>
+      </div>
+      <div class="comparison-content">
+        <div class="old-way">
+          <div class="method-title">
+            <span class="badge old-badge">Legacy</span>
+            Media Queries
+          </div>
+          <div class="demo-area">
+            <div class="media-demo">
+              <div class="media-card">
+                <div class="media-card-image"></div>
+                <div class="card-content">
+                  <h4>Product Card</h4>
+                  <p class="card-description">This description disappears on small screens</p>
+                </div>
+              </div>
+            </div>
+            <p class="resize-hint">Responds to browser window size</p>
+          </div>
+          <div class="code-block">@media (max-width: 600px) {
+            .card { flex-direction: column; }
+            .description { display: none; }
+            }</div>
+          <div class="pros-cons">
+            <h4>Limitations:</h4>
+            <ul>
+              <li>Only responds to viewport size</li>
+              <li>Can't adapt to container context</li>
+              <li>Breaks component encapsulation</li>
+              <li>Requires global breakpoints</li>
+            </ul>
+          </div>
+        </div>
+        <div class="new-way">
+          <div class="method-title">
+            <span class="badge new-badge">Modern</span>
+            Container Queries
+            <span class="interactive-badge">Try resizing!</span>
+          </div>
+          <div class="demo-area">
+            <div class="container-demo">
+              <div class="responsive-card">
+                <div class="card-image"></div>
+                <div class="card-content">
+                  <h4>Smart Card</h4>
+                  <p class="card-description">This adapts to its container!</p>
+                </div>
+              </div>
+            </div>
+            <p class="resize-hint">Drag the right edge to resize →</p>
+          </div>
+          <div class="code-block">.container {
+            container-type: inline-size;
+            }
+
+            @container (max-width: 300px) {
+            .card { flex-direction: column; }
+            .description { display: none; }
+            }</div>
+          <div class="pros-cons">
+            <h4>Benefits:</h4>
+            <ul>
+              <li>Responds to container size</li>
+              <li>True component-based design</li>
+              <li>Reusable across contexts</li>
+              <li>Better component encapsulation</li>
+            </ul>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Container Query Card -->
-      <div class="container-area">
-        <h2>Container Query</h2>
-        <div class="container-box">
-          <div class="card container-card">
-            <img src="https://placecats.com/300/200" alt="Kitten" />
-            <div class="content">
-              <h3>Fluffy</h3>
-              <p class="description">This is Fluffy. Fluffy loves to sleep in sunny windows and knock pens off tables.</p>
+    <!-- Flexbox vs Floats -->
+    <section class="comparison-section" id="layout">
+      <div class="section-header">
+        <h2 class="section-title">Layout Systems</h2>
+        <p class="section-subtitle">From float hacks to flexible layouts</p>
+      </div>
+      <div class="comparison-content">
+        <div class="old-way">
+          <div class="method-title">
+            <span class="badge old-badge">Legacy</span>
+            Float Layouts
+          </div>
+          <div class="demo-area">
+            <div class="float-layout">
+              <div class="float-item">
+                <h4>Item 1</h4>
+                <p>Floated left with margins</p>
+              </div>
+              <div class="float-item">
+                <h4>Item 2</h4>
+                <p>Complex calculations needed</p>
+              </div>
+              <div class="float-item">
+                <h4>Item 3</h4>
+                <p>Clearfix required</p>
+              </div>
             </div>
+          </div>
+          <div class="code-block">.item {
+            float: left;
+            width: 30%;
+            margin-right: 5%;
+            }
+            .item:last-child {
+            margin-right: 0;
+            }
+            .container::after {
+            content: "";
+            display: table;
+            clear: both;
+            }</div>
+          <div class="pros-cons">
+            <h4>Problems:</h4>
+            <ul>
+              <li>Requires clearfix hacks</li>
+              <li>Complex width calculations</li>
+              <li>No vertical alignment</li>
+              <li>Fragile and hard to maintain</li>
+            </ul>
+          </div>
+        </div>
+        <div class="new-way">
+          <div class="method-title">
+            <span class="badge new-badge">Modern</span>
+            Flexbox
+          </div>
+          <div class="demo-area">
+            <div class="flex-layout">
+              <div class="flex-item">
+                <h4>Item 1</h4>
+                <p>Flexible and intuitive</p>
+              </div>
+              <div class="flex-item">
+                <h4>Item 2</h4>
+                <p>Equal heights by default</p>
+              </div>
+              <div class="flex-item">
+                <h4>Item 3</h4>
+                <p>Perfect spacing with gap</p>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">.container {
+            display: flex;
+            gap: 1rem;
+            }
+
+            .item {
+            flex: 1;
+            }</div>
+          <div class="pros-cons">
+            <h4>Benefits:</h4>
+            <ul>
+              <li>Simple and intuitive syntax</li>
+              <li>Automatic equal heights</li>
+              <li>Built-in alignment options</li>
+              <li>Responsive by default</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CSS Grid vs Table Layout -->
+    <section class="comparison-section">
+      <div class="section-header">
+        <h2 class="section-title">Complex Layouts</h2>
+        <p class="section-subtitle">From table hacks to powerful grid systems</p>
+      </div>
+      <div class="comparison-content">
+        <div class="old-way">
+          <div class="method-title">
+            <span class="badge old-badge">Legacy</span>
+            Table Layouts
+          </div>
+          <div class="demo-area">
+            <div class="table-layout">
+              <div class="table-header">
+                <div class="table-cell header-cell">Header 1</div>
+                <div class="table-cell header-cell">Header 2</div>
+                <div class="table-cell header-cell">Header 3</div>
+              </div>
+              <div class="table-row">
+                <div class="table-cell">Sidebar Content</div>
+                <div class="table-cell main-cell">Main Content Area</div>
+                <div class="table-cell">Ad Space</div>
+              </div>
+              <div class="table-footer">
+                <div class="table-cell footer-cell" colspan="3">Footer spans all columns</div>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">.layout {
+            display: table;
+            width: 100%;
+            }
+            .header, .row, .footer {
+            display: table-row;
+            }
+            .cell {
+            display: table-cell;
+            padding: 1rem;
+            vertical-align: top;
+            }
+            .main-cell {
+            width: 60%;
+            }
+            .footer-cell {
+            /* No real colspan in CSS tables */
+            }</div>
+          <div class="pros-cons">
+            <h4>Problems:</h4>
+            <ul>
+              <li>Semantic confusion with tables</li>
+              <li>Limited layout flexibility</li>
+              <li>No true spanning capabilities</li>
+              <li>Difficult responsive behavior</li>
+              <li>Complex nested structures</li>
+            </ul>
+          </div>
+        </div>
+        <div class="new-way">
+          <div class="method-title">
+            <span class="badge new-badge">Modern</span>
+            CSS Grid
+          </div>
+          <div class="demo-area">
+            <div class="grid-layout">
+              <div class="grid-header">Header 1</div>
+              <div class="grid-header">Header 2</div>
+              <div class="grid-header">Header 3</div>
+              <div class="grid-sidebar">Sidebar</div>
+              <div class="grid-main">Main Content</div>
+              <div class="grid-aside">Aside</div>
+              <div class="grid-footer">Footer spans entire width</div>
+            </div>
+          </div>
+          <div class="code-block">.layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 1rem;
+            }
+
+            .footer {
+            grid-column: 1 / -1;
+            }</div>
+          <div class="pros-cons">
+            <h4>Benefits:</h4>
+            <ul>
+              <li>Semantic and accessible markup</li>
+              <li>Powerful spanning capabilities</li>
+              <li>Intuitive responsive layouts</li>
+              <li>Perfect alignment control</li>
+              <li>Clean, maintainable code</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Centering Elements -->
+    <section class="comparison-section">
+      <div class="section-header">
+        <h2 class="section-title">Centering Elements</h2>
+        <p class="section-subtitle">From positioning nightmares to elegant solutions</p>
+      </div>
+      <div class="comparison-content">
+        <div class="old-way">
+          <div class="method-title">
+            <span class="badge old-badge">Legacy</span>
+            Position + Transform
+          </div>
+          <div class="demo-area">
+            <div class="old-center">
+              <div class="old-center-content">Centered?</div>
+            </div>
+          </div>
+          <div class="code-block">.container {
+            position: relative;
+            }
+
+            .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            }</div>
+          <div class="pros-cons">
+            <h4>Issues:</h4>
+            <ul>
+              <li>Requires position context</li>
+              <li>Transform affects other properties</li>
+              <li>Hard to remember syntax</li>
+              <li>Can cause blurry text</li>
+            </ul>
+          </div>
+        </div>
+        <div class="new-way">
+          <div class="method-title">
+            <span class="badge new-badge">Modern</span>
+            Flexbox Centering
+          </div>
+          <div class="demo-area">
+            <div class="new-center">
+              <div class="new-center-content">Perfectly Centered!</div>
+            </div>
+          </div>
+          <div class="code-block">.container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }</div>
+          <div class="pros-cons">
+            <h4>Benefits:</h4>
+            <ul>
+              <li>Intuitive and readable</li>
+              <li>Works with any content size</li>
+              <li>No positioning context needed</li>
+              <li>Pixel-perfect centering</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CSS Variables vs Sass Variables -->
+    <section class="comparison-section" id="styling">
+      <div class="section-header">
+        <h2 class="section-title">Dynamic Styling</h2>
+        <p class="section-subtitle">From build-time variables to runtime CSS custom properties</p>
+      </div>
+      <div class="comparison-content">
+        <div class="old-way">
+          <div class="method-title">
+            <span class="badge old-badge">Legacy</span>
+            Sass Variables
+          </div>
+          <div class="demo-area">
+            <div class="sass-demo">
+              <div class="sass-card">
+                <h4>Static Theme</h4>
+                <p>Colors compiled at build time</p>
+                <button class="sass-button">Sass Button</button>
+              </div>
+              <div class="sass-warning">
+                <p>⚠️ Cannot change themes dynamically</p>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">// SCSS
+            $primary-color: #6366f1;
+            $secondary-color: #f59e0b;
+            $border-radius: 8px;
+
+            .button {
+            background: $primary-color;
+            border-radius: $border-radius;
+
+            &:hover {
+            background: darken($primary-color, 10%);
+            }
+            }</div>
+          <div class="pros-cons">
+            <h4>Limitations:</h4>
+            <ul>
+              <li>Compiled at build time only</li>
+              <li>No runtime theme switching</li>
+              <li>Requires preprocessor setup</li>
+              <li>Can't respond to user preferences</li>
+              <li>No dynamic calculations</li>
+            </ul>
+          </div>
+        </div>
+        <div class="new-way">
+          <div class="method-title">
+            <span class="badge new-badge">Modern</span>
+            CSS Custom Properties
+            <span class="interactive-badge">Try themes!</span>
+          </div>
+          <div class="demo-area">
+            <div class="css-vars-demo">
+              <div class="theme-switcher">
+                <button class="theme-btn" data-theme="default">Default</button>
+                <button class="theme-btn" data-theme="dark">Dark</button>
+                <button class="theme-btn" data-theme="colorful">Colorful</button>
+              </div>
+              <div class="css-vars-card">
+                <h4>Dynamic Theme</h4>
+                <p>Colors that change instantly!</p>
+                <button class="css-vars-button">CSS Button</button>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">/* CSS */
+            :root {
+            --primary: #6366f1;
+            --secondary: #f59e0b;
+            --radius: 8px;
+            }
+
+            .button {
+            background: var(--primary);
+            border-radius: var(--radius);
+            }
+
+            /* Dynamic theme switching */
+            [data-theme="dark"] {
+            --primary: #1f2937;
+            --secondary: #374151;
+            }</div>
+          <div class="pros-cons">
+            <h4>Benefits:</h4>
+            <ul>
+              <li>Runtime theme switching</li>
+              <li>No build process required</li>
+              <li>Responds to user preferences</li>
+              <li>JavaScript integration</li>
+              <li>Cascading and inheritance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CSS Animations vs JavaScript Animations -->
+    <section class="comparison-section" id="animations">
+      <div class="section-header">
+        <h2 class="section-title">Animations & Motion</h2>
+        <p class="section-subtitle">From imperative JavaScript to declarative CSS animations</p>
+      </div>
+      <div class="comparison-content">
+        <div class="old-way">
+          <div class="method-title">
+            <span class="badge old-badge">Legacy</span>
+            JavaScript Animations
+          </div>
+          <div class="demo-area">
+            <div class="js-animation-demo">
+              <div class="js-box" id="jsBox">JS Box</div>
+              <button class="js-animate-btn">Animate with JS</button>
+              <div class="performance-warning">
+                <p>⚠️ Main thread blocking, poor performance</p>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">// JavaScript
+            let box = document.getElementById('box');
+            let pos = 0;
+            let animationId;
+
+            function animate() {
+            pos += 2;
+            box.style.left = pos + 'px';
+            box.style.transform = `rotate(${pos * 2}deg)`;
+
+            if (pos &lt; 200) {
+            animationId = requestAnimationFrame(animate);
+            }
+            }
+
+            button.onclick = () => {
+            pos = 0;
+            animate();
+            };</div>
+          <div class="pros-cons">
+            <h4>Problems:</h4>
+            <ul>
+              <li>Blocks main JavaScript thread</li>
+              <li>Poor performance on mobile</li>
+              <li>Complex state management</li>
+              <li>Not optimized by browser</li>
+              <li>Difficult to coordinate timing</li>
+            </ul>
+          </div>
+        </div>
+        <div class="new-way">
+          <div class="method-title">
+            <span class="badge new-badge">Modern</span>
+            CSS Animations
+            <span class="interactive-badge">Hardware accelerated!</span>
+          </div>
+          <div class="demo-area">
+            <div class="css-animation-demo">
+              <div class="css-box">CSS Box</div>
+              <button class="css-animate-btn">Animate with CSS</button>
+              <div class="performance-info">
+                <p>✅ Smooth 60fps, GPU accelerated</p>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">/* CSS */
+            @keyframes slideAndRotate {
+            0% {
+            transform: translateX(0) rotate(0deg);
+            }
+            100% {
+            transform: translateX(200px) rotate(360deg);
+            }
+            }
+
+            .box {
+            animation: slideAndRotate 2s ease-in-out;
+            }
+
+            .box:hover {
+            animation-play-state: paused;
+            }</div>
+          <div class="pros-cons">
+            <h4>Benefits:</h4>
+            <ul>
+              <li>GPU accelerated performance</li>
+              <li>Runs on compositor thread</li>
+              <li>Declarative and maintainable</li>
+              <li>Built-in easing functions</li>
+              <li>Responsive and accessible</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modern Typography vs Fixed Sizing -->
+    <section class="comparison-section" id="typography">
+      <div class="section-header">
+        <h2 class="section-title">Responsive Typography</h2>
+        <p class="section-subtitle">From rigid pixel values to fluid, adaptive text systems</p>
+      </div>
+      <div class="comparison-content">
+        <div class="old-way">
+          <div class="method-title">
+            <span class="badge old-badge">Legacy</span>
+            Fixed Pixel Sizing
+          </div>
+          <div class="demo-area">
+            <div class="demo-area">
+              <div class="typography-container">
+                <div class="fixed-typography">
+                  <h3 class="fixed-heading">Fixed Heading</h3>
+                  <p class="fixed-text">This text uses fixed pixel values and doesn't adapt well to different screen sizes.</p>
+                  <div class="fixed-spacing">
+                    <div class="fixed-box">Box 1</div>
+                    <div class="fixed-box">Box 2</div>
+                  </div>
+                </div>
+              </div>
+              <p class="resize-hint">Try resizing this container! →</p>
+            </div>
+            <p class="resize-hint">Fixed sizes regardless of screen</p>
+          </div>
+          <div class="code-block">/* CSS */
+            .heading {
+            font-size: 24px;
+            margin-bottom: 16px;
+            }
+
+            .text {
+            font-size: 16px;
+            line-height: 24px;
+            margin-left: 20px;
+            margin-right: 20px;
+            }
+
+            .box {
+            padding: 12px 24px;
+            margin-bottom: 16px;
+            }</div>
+          <div class="pros-cons">
+            <h4>Issues:</h4>
+            <ul>
+              <li>Poor mobile experience</li>
+              <li>Not accessible to users who zoom</li>
+              <li>Rigid across screen sizes</li>
+              <li>Requires many media queries</li>
+              <li>No adaptation to user preferences</li>
+            </ul>
+          </div>
+        </div>
+        <div class="new-way">
+          <div class="method-title">
+            <span class="badge new-badge">Modern</span>
+            Fluid Typography & Logical Properties
+            <span class="interactive-badge">Resize to see!</span>
+          </div>
+          <div class="demo-area">
+            <div class="demo-area">
+              <div class="typography-container">
+                <div class="fluid-typography">
+                  <h3 class="fluid-heading">Fluid Heading</h3>
+                  <p class="fluid-text">This text uses clamp() for fluid sizing...</p>
+                  <div class="fluid-spacing">
+                    <div class="fluid-box">Smart Box 1</div>
+                    <div class="fluid-box">Smart Box 2</div>
+                  </div>
+                </div>
+              </div>
+              <p class="resize-hint">Resize to see fluid scaling! →</p>
+            </div>
+            <p class="resize-hint">Scales smoothly with viewport</p>
+          </div>
+          <div class="code-block">/* CSS */
+            .heading {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-block-end: clamp(0.5rem, 2vw, 1rem);
+            }
+
+            .text {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            line-height: 1.6;
+            margin-inline: clamp(1rem, 3vw, 2rem);
+            }
+
+            .box {
+            padding-block: clamp(0.75rem, 2vw, 1rem);
+            padding-inline: clamp(1rem, 3vw, 1.5rem);
+            margin-block-end: clamp(0.5rem, 2vw, 1rem);
+            }</div>
+          <div class="pros-cons">
+            <h4>Benefits:</h4>
+            <ul>
+              <li>Scales perfectly across devices</li>
+              <li>Respects user zoom preferences</li>
+              <li>International layout support</li>
+              <li>Fewer breakpoints needed</li>
+              <li>Future-proof and accessible</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer class="resources-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <h3>Learn More About Modern CSS</h3>
+      <p>Dive deeper into these powerful CSS features with these comprehensive guides:</p>
+
+      <div class="resource-grid">
+        <div class="resource-category">
+          <h4>Layout & Responsive</h4>
+          <div class="resource-links">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries" target="_blank">Container Queries - MDN</a>
+            <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">Complete Guide to Flexbox</a>
+            <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">Complete Guide to CSS Grid</a>
+          </div>
+        </div>
+
+        <div class="resource-category">
+          <h4>Styling & Variables</h4>
+          <div class="resource-links">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank">CSS Custom Properties</a>
+            <a href="https://web.dev/at-property/" target="_blank">CSS @property</a>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp" target="_blank">CSS clamp() Function</a>
+          </div>
+        </div>
+
+        <div class="resource-category">
+          <h4>Performance & Animation</h4>
+          <div class="resource-links">
+            <a href="https://web.dev/animations-guide/" target="_blank">Web Animations Guide</a>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/Performance/CSS_JavaScript_animation_performance" target="_blank">Animation Performance</a>
+            <a href="https://css-tricks.com/almanac/properties/a/animation/" target="_blank">CSS Animation Almanac</a>
           </div>
         </div>
       </div>
     </div>
 
-    <script type="module" src="src/main.js"></script>
-  </body>
+    <div class="footer-bottom">
+      <p>My portfolio • <a href="https://pixelsummit.dev/" target="_blank">PixelSummit</a></p>
+      <p>Built with new CSS techniques • <a href="https://github.com/leverh/css-compare-demo" target="_blank">View on GitHub</a></p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="src/main.js"></script>
+</body>
+
 </html>
